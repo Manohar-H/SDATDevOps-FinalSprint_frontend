@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="">
+<head><meta charset="utf-8"><title>Frontend → Backend check</title></head>
+<body>
+<h1>Health check</h1>
+<button id="btn">Ping backend</button>
+<pre id="out"></pre>
+<script>
+    document.getElementById('btn').onclick = async () => {
+      try {
+        const r = await fetch('http://localhost:8082/health');
+        document.getElementById('out').textContent =
+          `Status: ${r.status} ${r.ok ? 'OK' : 'FAIL'}\n` +
+          `Body: ${await r.text()}`;
+      } catch (e) {
+        document.getElementById('out').textContent = 'Request error: ' + e;
+      }
+    };
+</script>
+</body>
+</html>
